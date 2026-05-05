@@ -4,6 +4,9 @@
 
 {% block content %}
     <h1>Записи до лікаря (коротка версія)</h1>
+    {% if user.is_authenticated %}
+        <p><a href="{% url 'appointments:appointment_add' %}">+ Додати новий запис</a></p>
+    {% endif %}
 
     <form method="get">
         <label>
@@ -23,6 +26,9 @@
                 <th>Лікар</th>
                 <th>Діагноз</th>
                 <th>Деталі</th>
+                {% if user.is_authenticated %}
+                    <th>Дії</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -37,6 +43,9 @@
                             Переглянути
                         </a>
                     </td>
+                    {% if user.is_authenticated %}
+                        <td><a href="{% url 'appointments:appointment_edit' appointment.pk %}">Редагувати</a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

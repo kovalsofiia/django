@@ -4,6 +4,9 @@
 
 {% block content %}
     <h1>Список лікарів</h1>
+    {% if user.is_authenticated %}
+        <p><a href="{% url 'doctors:doctor_add' %}">+ Додати нового лікаря</a></p>
+    {% endif %}
 
     {% if doctors %}
         <table>
@@ -12,6 +15,9 @@
                 <th>ПІБ</th>
                 <th>Спеціалізація</th>
                 <th>Стаж (років)</th>
+                {% if user.is_authenticated %}
+                    <th>Дії</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -20,6 +26,9 @@
                     <td>{{ doctor.full_name }}</td>
                     <td>{{ doctor.specialization }}</td>
                     <td>{{ doctor.experience_years }}</td>
+                    {% if user.is_authenticated %}
+                        <td><a href="{% url 'doctors:doctor_edit' doctor.pk %}">Редагувати</a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

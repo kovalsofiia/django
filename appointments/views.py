@@ -1,5 +1,8 @@
-from django.views.generic import DetailView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
+from appointments.forms import AppointmentForm
 from appointments.models import Appointment
 
 
@@ -39,4 +42,18 @@ class AppointmentDetailView(DetailView):
     model = Appointment
     template_name = "appointments/appointment_detail.html"
     context_object_name = "appointment"
+
+
+class AppointmentCreateView(LoginRequiredMixin, CreateView):
+    model = Appointment
+    form_class = AppointmentForm
+    template_name = "appointments/appointment_form.html"
+    success_url = reverse_lazy("appointments:appointment_list_short")
+
+
+class AppointmentUpdateView(LoginRequiredMixin, UpdateView):
+    model = Appointment
+    form_class = AppointmentForm
+    template_name = "appointments/appointment_form.html"
+    success_url = reverse_lazy("appointments:appointment_list_short")
 

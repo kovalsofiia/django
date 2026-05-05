@@ -1,15 +1,18 @@
 from django.urls import path
 
 from appointments.views import (
+    AppointmentCreateView,
     AppointmentDetailView,
     AppointmentListFullView,
     AppointmentListShortView,
+    AppointmentUpdateView,
 )
 
 app_name = "appointments"
 
 urlpatterns = [
     path("", AppointmentListShortView.as_view(), name="appointment_list_short"),
+    path("add/", AppointmentCreateView.as_view(), name="appointment_add"),
     path(
         "full/",
         AppointmentListFullView.as_view(),
@@ -20,5 +23,6 @@ urlpatterns = [
         AppointmentDetailView.as_view(),
         name="appointment_detail",
     ),
+    path("<int:pk>/edit/", AppointmentUpdateView.as_view(), name="appointment_edit"),
 ]
 
