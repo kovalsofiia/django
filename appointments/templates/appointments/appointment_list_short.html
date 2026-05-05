@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Записи (коротка версія){% endblock %}
+
+{% block content %}
+    <h1>Записи до лікаря (коротка версія)</h1>
+
+    <form method="get">
+        <label>
+            Фільтр за діагнозом:
+            <input type="text" name="diagnosis" value="{{ request.GET.diagnosis }}">
+        </label>
+        <button type="submit">Фільтрувати</button>
+        <a href="{% url 'appointments:appointment_list_short' %}">Скинути</a>
+    </form>
+
+    {% if appointments %}
+        <table>
+            <thead>
+            <tr>
+                <th>ПІБ пацієнта</th>
+                <th>Дата прийому</th>
+                <th>Лікар</th>
+                <th>Діагноз</th>
+                <th>Деталі</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.patient_name }}</td>
+                    <td>{{ appointment.appointment_date }}</td>
+                    <td>{{ appointment.doctor.full_name }}</td>
+                    <td>{{ appointment.diagnosis|default:"—" }}</td>
+                    <td>
+                        <a href="{% url 'appointments:appointment_detail' appointment.pk %}">
+                            Переглянути
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Записів поки що немає.</p>
+    {% endif %}
+{% endblock %}
+

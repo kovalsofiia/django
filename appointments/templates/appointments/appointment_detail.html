@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Деталі запису{% endblock %}
+
+{% block content %}
+    <h1>Деталі запису до лікаря</h1>
+
+    <article>
+        <h2>{{ appointment.patient_name }}</h2>
+        <p><strong>Дата народження:</strong> {{ appointment.birth_date }}</p>
+        <p><strong>Телефон:</strong> {{ appointment.phone }}</p>
+        <p><strong>Скарги:</strong> {{ appointment.complaints }}</p>
+        <p><strong>Дата прийому:</strong> {{ appointment.appointment_date }}</p>
+        <p><strong>Лікар:</strong> {{ appointment.doctor.full_name }} ({{ appointment.doctor.specialization }})</p>
+        <p><strong>Діагноз:</strong> {{ appointment.diagnosis|default:"—" }}</p>
+        <p><strong>Опис лікування:</strong> {{ appointment.treatment_description|default:"—" }}</p>
+    </article>
+
+    <p>
+        <a href="{% url 'appointments:appointment_list_short' %}">← Повернутися до списку записів</a>
+    </p>
+{% endblock %}
+

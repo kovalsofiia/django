@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Записи (повна версія){% endblock %}
+
+{% block content %}
+    <h1>Записи до лікаря (повна версія)</h1>
+
+    {% if appointments %}
+        <table>
+            <thead>
+            <tr>
+                <th>ПІБ пацієнта</th>
+                <th>Дата народження</th>
+                <th>Телефон</th>
+                <th>Скарги</th>
+                <th>Дата прийому</th>
+                <th>Лікар</th>
+                <th>Діагноз</th>
+                <th>Опис лікування</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.patient_name }}</td>
+                    <td>{{ appointment.birth_date }}</td>
+                    <td>{{ appointment.phone }}</td>
+                    <td>{{ appointment.complaints }}</td>
+                    <td>{{ appointment.appointment_date }}</td>
+                    <td>{{ appointment.doctor.full_name }}</td>
+                    <td>{{ appointment.diagnosis|default:"—" }}</td>
+                    <td>{{ appointment.treatment_description|default:"—" }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Записів поки що немає.</p>
+    {% endif %}
+{% endblock %}
+

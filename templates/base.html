@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Психіатрична лікарня{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+<header class="container">
+    <nav>
+        <ul>
+            <li><strong>Психіатрична лікарня</strong></li>
+        </ul>
+        <ul>
+            <li><a href="{% url 'doctors:doctor_list' %}">Лікарі</a></li>
+            <li><a href="{% url 'appointments:appointment_list_short' %}">Записи (коротко)</a></li>
+            <li><a href="{% url 'appointments:appointment_list_full' %}">Записи (повно)</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="container">
+    <small>&copy; {% now "Y" %} Психіатрична лікарня</small>
+</footer>
+</body>
+</html>
+
