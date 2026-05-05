@@ -15,9 +15,15 @@
             <li><a href="{% url 'doctors:doctor_list' %}">Лікарі</a></li>
             <li><a href="{% url 'appointments:appointment_list_short' %}">Записи (коротко)</a></li>
             <li><a href="{% url 'appointments:appointment_list_full' %}">Записи (повно)</a></li>
+            <li><a href="{% url 'appointments:appointment_last_viewed' %}">Останній переглянутий запис</a></li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'doctors:doctor_add' %}">Додати лікаря</a></li>
+                {% if user.groups.all|length %}
+                    <li><small>Роль: {% for group in user.groups.all %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small></li>
+                {% endif %}
                 <li><a href="{% url 'appointments:appointment_add' %}">Додати запис</a></li>
+                {% if user.groups.filter(name='administrator').exists %}
+                    <li><a href="{% url 'doctors:doctor_add' %}">Додати лікаря</a></li>
+                {% endif %}
                 <li>
                     <form action="{% url 'logout' %}" method="post" style="margin: 0;">
                         {% csrf_token %}

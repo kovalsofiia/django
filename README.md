@@ -46,3 +46,21 @@ doctor.appointments.all()
 # 4) Майбутні записи, відсортовані за датою
 Appointment.objects.filter(appointment_date__gte=timezone.now()).order_by("appointment_date")
 ```
+
+## Лабораторна 4: ролі, сесії, cookies
+
+- Сесія:
+  - при відкритті деталей запису зберігається `last_viewed_appointment_id`;
+  - сторінка `appointments/last/` перекидає на останній переглянутий запис.
+- Cookies:
+  - фільтр `diagnosis` на сторінці короткого списку записів зберігається в cookie.
+- Ролі через групи:
+  - `doctor` - може редагувати записи до лікаря;
+  - `administrator` - може додавати та редагувати лікарів.
+
+Створити ролі:
+```bash
+./venv/bin/python manage.py setup_roles
+```
+
+Потім призначити групи користувачам через admin (`Users` -> `Groups`).

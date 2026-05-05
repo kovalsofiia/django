@@ -18,6 +18,9 @@
 
     <p>
         <a href="{% url 'appointments:appointment_list_short' %}">← Повернутися до списку записів</a>
+        {% if can_edit_appointments %}
+            | <a href="{% url 'appointments:appointment_edit' appointment.pk %}">Редагувати запис</a>
+        {% endif %}
     </p>
 {% endblock %}
 

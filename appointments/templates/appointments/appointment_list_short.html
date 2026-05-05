@@ -11,10 +11,10 @@
     <form method="get">
         <label>
             Фільтр за діагнозом:
-            <input type="text" name="diagnosis" value="{{ request.GET.diagnosis }}">
+            <input type="text" name="diagnosis" value="{{ active_diagnosis_filter }}">
         </label>
         <button type="submit">Фільтрувати</button>
-        <a href="{% url 'appointments:appointment_list_short' %}">Скинути</a>
+        <a href="{% url 'appointments:appointment_list_short' %}?clear_filter=1">Скинути</a>
     </form>
 
     {% if appointments %}
@@ -26,7 +26,7 @@
                 <th>Лікар</th>
                 <th>Діагноз</th>
                 <th>Деталі</th>
-                {% if user.is_authenticated %}
+                {% if can_edit_appointments %}
                     <th>Дії</th>
                 {% endif %}
             </tr>
@@ -43,7 +43,7 @@
                             Переглянути
                         </a>
                     </td>
-                    {% if user.is_authenticated %}
+                    {% if can_edit_appointments %}
                         <td><a href="{% url 'appointments:appointment_edit' appointment.pk %}">Редагувати</a></td>
                     {% endif %}
                 </tr>
